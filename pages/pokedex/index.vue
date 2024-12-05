@@ -10,22 +10,27 @@
           <div class="pokemon-name pl-4">{{ pokemon.nameFR }}</div>
         </div>
       </div>
-      <div class="flex mt-4">
-        <p class="pr-2">Use the arrow keys to navigate the Pokédex.</p>
-        <UKbd>↑</UKbd>
-        <UKbd class="ml-2">↓</UKbd>
-        Or <UKbd class="ml-2">←</UKbd>
-        <UKbd class="ml-2">→</UKbd> to navigate by 10.
+      <div class="flex mt-4 flex-col text-xl">
+        <div>
+          <p class="pr-2">Utilisez les touches
+            <UKbd>↑</UKbd><UKbd class="ml-2">↓</UKbd>
+            pour naviguer.
+          </p>
+        </div>
+        <div>
+          Ou <UKbd class="ml-2">←</UKbd>
+          <UKbd class="ml-2">→</UKbd> pour sauter de 10 en 10.
+        </div>
       </div>
     </div>
-    <div class="pokedex-right">
+    <ULink class="pokedex-right" :to="`/pokedex/${pokemonList[currentIndex]?.name}`">
       <div class="pokemon-details">
         <div class="text-center mb-8">
           <div ref="qrCodeContainer"></div>
         </div>
         <h2 class="pokemon-name-detail">{{ pokemonList[currentIndex]?.nameFR }}</h2>
       </div>
-    </div>
+    </ULink>
 
   </div>
 </template>
@@ -210,7 +215,7 @@ const generateCustomQRCode = async () => {
 
 /* Partie gauche */
 .pokedex-left {
-  width: 40%;
+  width: 60%;
   background-color: #f0c838;
   display: flex;
   flex-direction: column;
