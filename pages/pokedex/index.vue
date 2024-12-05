@@ -153,7 +153,13 @@ const handleKeydown = (event) => {
   font-size: 1.5rem;
   text-align: center;
   margin-bottom: 20px;
-  background-color: #F8C080;
+  background: repeating-linear-gradient(
+      180deg,
+      #F8C080,
+      #F8C080 1px,
+      transparent 1px,
+      transparent 2px
+  );
   border-radius: 10px;
   padding: 10px;
   border: 4px solid #000;
@@ -165,10 +171,16 @@ const handleKeydown = (event) => {
   width: 100%;
   max-height: 80%;
   overflow-y: auto;
-  background-color: #ffffff;
   border: 4px solid #000;
   padding: 10px;
   color: #000;
+  background: repeating-linear-gradient(
+      180deg,
+      #ffffff,
+      #ffffff 1px,
+      transparent 1px,
+      transparent 2px
+  );
 }
 
 .pokemon-item {
