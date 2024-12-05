@@ -15,9 +15,9 @@
             </svg>
           </div>
           <div class="item-details">
-            <h3 class="item-title">{{ item.title }}</h3>
-            <p class="item-description">{{ item.description }}</p>
-            <p class="item-url">URL: {{ item.url }}</p>
+            <h3 class="item-title full-text">{{ item.title }}</h3>
+            <p class="item-description full-text">{{ item.description }}</p>
+            <p class="item-url full-text">URL: {{ item.url }}</p>
           </div>
         </div>
       </div>
@@ -108,8 +108,14 @@
   
   .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    }
   }
   
   .gallery-item {
@@ -153,22 +159,24 @@
   }
   
   .item-details {
-    padding: 0.5rem 1rem;
+    padding: 1rem;
+  }
+  
+  .item-title.full-text,
+  .item-description.full-text,
+  .item-url.full-text {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
   
   .item-title {
     font-size: 1.125rem;
     font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   
   .item-description {
     color: #718096;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   
   .item-url {
@@ -221,4 +229,3 @@
     width: 100%;
   }
   </style>
-  
