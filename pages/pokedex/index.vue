@@ -16,8 +16,14 @@
       </div>
     </div>
     <div class="pokedex-right">
-      <div class="text-center mb-8">
-        <div ref="qrCodeContainer"></div>
+      <div class="pokemon-details">
+        <img
+            v-if="pokemonList[currentIndex]?.image"
+            :src="pokemonList[currentIndex]?.image"
+            :alt="pokemonList[currentIndex]?.name"
+            class="pokemon-image"
+        />
+        <h2 class="pokemon-name-detail">{{ pokemonList[currentIndex]?.name }}</h2>
       </div>
     </div>
 
@@ -36,8 +42,6 @@ const loading = ref(true);
 const pokemonList = ref([]);
 const currentIndex = ref(0);
 const pokemonListContainer = ref(null);
-
-
 
 onMounted(async () => {
   // Fetch Pokémon data
