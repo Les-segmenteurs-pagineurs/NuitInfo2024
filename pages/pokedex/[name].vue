@@ -62,7 +62,6 @@ onMounted(async () => {
 
 
 <style scoped>
-
 .retro-button:hover {
   background-color: #ffffff;
   color: #ff0000;

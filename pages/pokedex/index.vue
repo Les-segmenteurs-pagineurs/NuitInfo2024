@@ -4,30 +4,27 @@
     <div class="pokedex-left">
       <h1 class="title">Pokédex National</h1>
       <div class="pokemon-list rounded-2xl" ref="pokemonListContainer">
-        <div
-            v-for="(pokemon, index) in pokemonList"
-            :key="pokemon.name"
-            :class="['pokemon-item', { active: index === currentIndex }]"
-            @click="selectPokemon(index)"
-        >
+        <div v-for="(pokemon, index) in pokemonList" :key="pokemon.name"
+          :class="['pokemon-item', { active: index === currentIndex }]" @click="selectPokemon(index)">
           <div class="pokemon-number">{{ formatNumber(index + 1) }}</div>
           <div class="pokemon-name pl-4">{{ pokemon.name }}</div>
         </div>
       </div>
       <div class="flex mt-4">
         <p class="pr-2">Use the arrow keys to navigate the Pokédex.</p>
-        <UKbd>↑</UKbd> <UKbd class="ml-2">↓</UKbd>
-        Or <UKbd class="ml-2">←</UKbd> <UKbd class="ml-2">→</UKbd> to navigate by 10.
+        <UKbd>↑</UKbd>
+        <UKbd class="ml-2">↓</UKbd>
+        Or <UKbd class="ml-2">←</UKbd>
+        <UKbd class="ml-2">→</UKbd> to navigate by 10.
       </div>
     </div>
     <div class="pokedex-right">
       <div class="pokemon-details">
-        <img
-            v-if="pokemonList[currentIndex]?.image"
-            :src="pokemonList[currentIndex]?.image"
-            :alt="pokemonList[currentIndex]?.name"
-            class="pokemon-image"
-        />
+        <div class="text-center mb-8">
+          <div ref="qrCodeContainer"></div>
+        </div>
+        <img v-if="pokemonList[currentIndex]?.image" :src="pokemonList[currentIndex]?.image"
+          :alt="pokemonList[currentIndex]?.name" class="pokemon-image" />
         <h2 class="pokemon-name-detail">{{ pokemonList[currentIndex]?.name }}</h2>
       </div>
     </div>
@@ -38,12 +35,15 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { usePokeAPI } from '@/composables/usePokeAPI';
+import urlsPokemons from '@/assets/urls_pokemons.json';
+import QRCodeStyling from 'qr-code-styling';
 
-const { getFirstGeneration } = usePokeAPI();
+const { getFirstGeneration, getPokemonSpeciesByName } = usePokeAPI();
 const loading = ref(true);
 const pokemonList = ref([]);
 const currentIndex = ref(0);
 const pokemonListContainer = ref(null);
+const qrCodeContainer = ref<HTMLDivElement | null>(null);
 
 onMounted(async () => {
   // Fetch Pokémon data
@@ -53,10 +53,15 @@ onMounted(async () => {
     image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`, // Placeholder for Pokémon sprite
   }));
   loading.value = false;
+
+  await nextTick(); // Attendre que le DOM soit mis à jour
+
+  generateCustomQRCode();
 });
 
 const selectPokemon = (index) => {
   currentIndex.value = index;
+  generateCustomQRCode();
   updateScrollPosition(); // Update scroll position when a Pokémon is selected
 };
 
@@ -98,6 +103,54 @@ const handleKeydown = (event) => {
     currentIndex.value = newIndex;
     updateScrollPosition();
   }
+  generateCustomQRCode();
+};
+
+const getPokemonUrl = (pokemonName) => {
+  for (const issue in urlsPokemons.pokemon_issues) {
+    if (urlsPokemons.pokemon_issues[issue].pokemons.includes(pokemonName)) {
+      return urlsPokemons.pokemon_issues[issue].url;
+    }
+  }
+  return null;
+};
+
+const generateCustomQRCode = async () => {
+  const pokemon = pokemonList.value[currentIndex.value];
+  if (qrCodeContainer.value && pokemon) {
+    const pokemonUrl = getPokemonUrl(pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1));
+    const routeUrl = pokemonUrl ? pokemonUrl : `${window.location.origin}/pokedex/${pokemon.name}`;
+
+    const species = await getPokemonSpeciesByName(pokemon.name);
+    const primaryColor = species ? species.color.name : '#000000';
+
+    // Créer une instance QRCodeStyling avec la couleur du Pokémon
+    const qrCode = new QRCodeStyling({
+      width: 350,
+      height: 350,
+      data: routeUrl,
+      image: pokemon.image,
+      dotsOptions: {
+        color: primaryColor,
+        type: 'rounded',
+      },
+      backgroundOptions: {
+        color: '#FFFFFF',
+      },
+      imageOptions: {
+        crossOrigin: 'anonymous',
+        margin: 0,
+        scale: 1.0,
+      },
+      version: 3,
+    });
+
+    // Vider le container avant de dessiner le QR code
+    qrCodeContainer.value.innerHTML = '';
+
+    // Ajouter le QR code au container
+    qrCode.append(qrCodeContainer.value);
+  }
 };
 </script>
 
@@ -110,7 +163,8 @@ const handleKeydown = (event) => {
   font-family: 'Press Start 2P', cursive;
   position: relative;
   overflow: hidden;
-  outline: none; /* Pour éviter le contour bleu de focus sur le conteneur */
+  outline: none;
+  /* Pour éviter le contour bleu de focus sur le conteneur */
 }
 
 /* Trait animé */
@@ -123,19 +177,18 @@ const handleKeydown = (event) => {
   background: rgba(255, 255, 255, 0.6);
   animation: scanline 6s linear infinite;
   z-index: 10;
-  background: repeating-linear-gradient(
-      0deg,
+  background: repeating-linear-gradient(0deg,
       rgba(0, 0, 0, 0.15),
       rgba(0, 0, 0, 0.15) 1px,
       transparent 1px,
-      transparent 2px
-  );
+      transparent 2px);
 }
 
 @keyframes scanline {
   0% {
     transform: translateY(0);
   }
+
   100% {
     transform: translateY(100vh);
   }
@@ -150,13 +203,11 @@ const handleKeydown = (event) => {
   align-items: flex-start;
   padding: 20px;
   z-index: 1;
-  background: repeating-linear-gradient(
-      180deg,
+  background: repeating-linear-gradient(180deg,
       #f0c838,
       #f0c838 1px,
       transparent 1px,
-      transparent 2px
-  );
+      transparent 2px);
 
 }
 
@@ -164,18 +215,16 @@ const handleKeydown = (event) => {
   font-size: 1.5rem;
   text-align: center;
   margin-bottom: 20px;
-  background: repeating-linear-gradient(
-      180deg,
+  background: repeating-linear-gradient(180deg,
       #F8C080,
       #F8C080 1px,
       transparent 1px,
-      transparent 2px
-  );
+      transparent 2px);
   border-radius: 10px;
   padding: 10px;
   border: 4px solid #000;
   color: #fff;
-  text-shadow: 2px 2px  #000;
+  text-shadow: 2px 2px #000;
 }
 
 .pokemon-list {
@@ -185,13 +234,11 @@ const handleKeydown = (event) => {
   border: 4px solid #000;
   padding: 10px;
   color: #000;
-  background: repeating-linear-gradient(
-      180deg,
+  background: repeating-linear-gradient(180deg,
       #ffffff,
       #ffffff 1px,
       transparent 1px,
-      transparent 2px
-  );
+      transparent 2px);
 }
 
 .pokemon-item {
@@ -209,10 +256,15 @@ const handleKeydown = (event) => {
 
 .pokemon-item.active {
   background-color: #ffa500;
+
+  /* Couleur d'arrière-plan surbrillance */
   color: #fff;
+  /* Couleur du texte en surbrillance */
   font-weight: bold;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  /* Ombre pour donner un effet de profondeur */
   border: 2px solid #ff0000;
+  /* Bordure rouge pour plus de contraste */
 }
 
 .pokemon-number {
@@ -231,13 +283,11 @@ const handleKeydown = (event) => {
 /* Partie droite */
 .pokedex-right {
   width: 60%;
-  background: repeating-linear-gradient(
-      180deg,
+  background: repeating-linear-gradient(180deg,
       #6078A0,
       #6078A0 1px,
       transparent 1px,
-      transparent 2px
-  );
+      transparent 2px);
   display: flex;
   flex-direction: column;
   justify-content: center;

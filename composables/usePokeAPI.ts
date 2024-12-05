@@ -23,8 +23,19 @@ export const usePokeAPI = () => {
     }
   };
 
+  const getPokemonSpeciesByName = async (name: string) => {
+    try {
+      const response = await axios.get(`${baseURL}/pokemon-species/${name}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching Pokemon ${name}:`, error);
+      return null;
+    }
+  };
+
   return {
     getFirstGeneration,
-    getPokemonByName
+    getPokemonByName,
+    getPokemonSpeciesByName
   };
 };

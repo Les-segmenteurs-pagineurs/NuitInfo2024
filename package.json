@@ -17,6 +17,7 @@
     "axios": "^1.7.9",
     "nuxt": "^3.14.1592",
     "prisma": "^6.0.1",
+    "qr-code-styling": "^1.8.4",
     "superstruct": "^2.0.2",
     "vue": "latest"
   },
