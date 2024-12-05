@@ -14,6 +14,10 @@
           <div class="pokemon-name pl-4">{{ pokemon.name }}</div>
         </div>
       </div>
+      <div class="flex mt-4">
+        <p class="pr-2">Use the arrow keys to navigate the Pokédex.</p>
+        <UKbd>↑</UKbd> <UKbd class="ml-2">↓</UKbd>
+      </div>
     </div>
     <div class="pokedex-right">
       <div class="pokemon-details">
@@ -27,9 +31,6 @@
       </div>
     </div>
 
-  </div>
-  <div>
-    heelo
   </div>
 </template>
 
