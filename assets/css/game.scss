@@ -1,0 +1,32 @@
+.main{
+    background-color: red;
+}
+.corner-pic{
+    height: 15rem;
+    width:15rem;
+    border-bottom-right-radius: 1rem;
+   
+    background-color: white;
+    position: absolute;
+    top: 3rem;
+    // left: 1rem;
+}
+
+.sw-btn{
+    position: absolute;
+    left: 14rem;
+    top: 6.5rem;
+}
+
+.left-side{
+    width: 18rem;
+    height: 100%;
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+}
+
+.main{
+    display: flex;
+    height: 100%;
+}
