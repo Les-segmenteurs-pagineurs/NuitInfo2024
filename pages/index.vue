@@ -4,6 +4,7 @@ const toast = useToast()
 
 <template>
   <h1>home page</h1>
+  <ULink to="/pokedex">Pokedex</ULink>
 </template>
 
 <style scoped>

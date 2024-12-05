@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="`/pokedex/${pokemon.name}`" class="pokemon-card">
+  <NuxtLink :to="`/pokedex/${pokemon.name}`" class="">
     <img :src="imageUrl" :alt="pokemon.name">
     <div class="name">#{{ formattedId }} {{ formattedName }}</div>
   </NuxtLink>

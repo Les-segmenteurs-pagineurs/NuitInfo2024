@@ -2,23 +2,48 @@
   <div class="p-4 retro-container">
     <h1 class="text-xl mb-8 text-center">Pokédex</h1>
     <div v-if="loading" class="text-center">Loading...</div>
-    <div v-else class="pokemon-grid">
-      <PokemonCard v-for="pokemon in pokemonList" :key="pokemon.name" :pokemon="pokemon" />
+    <div v-else class="carousel-container">
+      <button class="retro-button" @click="previousPokemon">↑</button>
+      <div class="pokemon-display">
+        <PokemonCard :pokemon="pokemonList[currentIndex]" />
+      </div>
+      <button class="retro-button" @click="nextPokemon">↓</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import { usePokeAPI } from '@/composables/usePokeAPI';
+import PokemonCard from '@/components/pokemon/PokemonCard.vue';
+
 const { getFirstGeneration } = usePokeAPI();
 const loading = ref(true);
 const pokemonList = ref([]);
+const currentIndex = ref(0);
 
 onMounted(async () => {
   pokemonList.value = await getFirstGeneration();
   loading.value = false;
 });
+
+const nextPokemon = () => {
+  if (currentIndex.value < pokemonList.value.length - 1) {
+    currentIndex.value++;
+  } else {
+    currentIndex.value = 0; // Retour au début si on dépasse la fin.
+  }
+};
+
+const previousPokemon = () => {
+  if (currentIndex.value > 0) {
+    currentIndex.value--;
+  } else {
+    currentIndex.value = pokemonList.value.length - 1; // Aller à la fin si on remonte depuis le début.
+  }
+};
 </script>
+
 
 <style scoped>
 @keyframes scanline {
@@ -36,6 +61,32 @@ onMounted(async () => {
   10% { opacity: 0.9; }
   15% { opacity: 0.85; }
   20% { opacity: 0.9; }
+}
+
+ .carousel-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 20px;
+ }
+
+.pokemon-display {
+  width: 200px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 4px solid #ff0000;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.pokemon-display img {
+  image-rendering: pixelated;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 body {
