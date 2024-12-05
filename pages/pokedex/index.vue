@@ -7,7 +7,7 @@
         <div v-for="(pokemon, index) in pokemonList" :key="pokemon.name"
           :class="['pokemon-item', { active: index === currentIndex }]" @click="selectPokemon(index)">
           <div class="pokemon-number">{{ formatNumber(index + 1) }}</div>
-          <div class="pokemon-name pl-4">{{ pokemon.name }}</div>
+          <div class="pokemon-name pl-4">{{ pokemon.nameFR }}</div>
         </div>
       </div>
       <div class="flex mt-4">
@@ -23,9 +23,7 @@
         <div class="text-center mb-8">
           <div ref="qrCodeContainer"></div>
         </div>
-        <img v-if="pokemonList[currentIndex]?.image" :src="pokemonList[currentIndex]?.image"
-          :alt="pokemonList[currentIndex]?.name" class="pokemon-image" />
-        <h2 class="pokemon-name-detail">{{ pokemonList[currentIndex]?.name }}</h2>
+        <h2 class="pokemon-name-detail">{{ pokemonList[currentIndex]?.nameFR }}</h2>
       </div>
     </div>
 
@@ -46,14 +44,25 @@ const pokemonListContainer = ref(null);
 const qrCodeContainer = ref<HTMLDivElement | null>(null);
 
 onMounted(async () => {
-  // Fetch Pokémon data
+  // Fetch Pokémon data de la première génération
   const data = await getFirstGeneration();
-  pokemonList.value = data.map((pokemon, index) => ({
-    ...pokemon,
-    image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`, // Placeholder for Pokémon sprite
-  }));
-  loading.value = false;
+  pokemonList.value = await Promise.all(
+    data.map(async (pokemon, index) => {
+      // Récupérer l'espèce du Pokémon pour obtenir le nom français
+      const species = await getPokemonSpeciesByName(pokemon.name);
+      const frenchNameObject = species.names.find(name => name.language.name === 'fr');
+      const frenchName = frenchNameObject ? frenchNameObject.name : pokemon.name;
 
+      // Retourner un objet Pokémon avec le nom français ajouté
+      return {
+        ...pokemon,
+        nameFR: frenchName,
+        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`, // Placeholder for Pokémon sprite
+      };
+    })
+  );
+
+  loading.value = false;
   await nextTick(); // Attendre que le DOM soit mis à jour
 
   generateCustomQRCode();
@@ -122,7 +131,12 @@ const generateCustomQRCode = async () => {
     const routeUrl = pokemonUrl ? pokemonUrl : `${window.location.origin}/pokedex/${pokemon.name}`;
 
     const species = await getPokemonSpeciesByName(pokemon.name);
-    const primaryColor = species ? species.color.name : '#000000';
+    console.log(species.names);
+    let primaryColor = species ? species.color.name : '#ffffff';
+
+    if (primaryColor == 'white') {
+      primaryColor = 'black';
+    }
 
     // Créer une instance QRCodeStyling avec la couleur du Pokémon
     const qrCode = new QRCodeStyling({
@@ -205,10 +219,9 @@ const generateCustomQRCode = async () => {
   z-index: 1;
   background: repeating-linear-gradient(180deg,
       #f0c838,
-      #f0c838 1px,
-      transparent 1px,
-      transparent 2px);
-
+      #f0c838 2px,
+      transparent 2px,
+      transparent 3px);
 }
 
 .title {
@@ -216,10 +229,10 @@ const generateCustomQRCode = async () => {
   text-align: center;
   margin-bottom: 20px;
   background: repeating-linear-gradient(180deg,
-      #F8C080,
-      #F8C080 1px,
-      transparent 1px,
-      transparent 2px);
+      #f8c080,
+      #f8c080 2px,
+      transparent 2px,
+      transparent 3px);
   border-radius: 10px;
   padding: 10px;
   border: 4px solid #000;
@@ -234,11 +247,7 @@ const generateCustomQRCode = async () => {
   border: 4px solid #000;
   padding: 10px;
   color: #000;
-  background: repeating-linear-gradient(180deg,
-      #ffffff,
-      #ffffff 1px,
-      transparent 1px,
-      transparent 2px);
+  background: #a0872c;
 }
 
 .pokemon-item {
@@ -285,9 +294,9 @@ const generateCustomQRCode = async () => {
   width: 60%;
   background: repeating-linear-gradient(180deg,
       #6078A0,
-      #6078A0 1px,
-      transparent 1px,
-      transparent 2px);
+      #6078A0 4px,
+      transparent 4px,
+      transparent 6px);
   display: flex;
   flex-direction: column;
   justify-content: center;
