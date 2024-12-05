@@ -1,0 +1,175 @@
+{
+    "pokemon_issues": {
+        "Deforestation": {
+            "pokemons": [
+                "Bulbasaur",
+                "Ivysaur",
+                "Venusaur"
+            ],
+            "url": "https://www.lasciencesimplement.fr/deforestation-entre-perte-de-biodiversite-emergence-de-maladies-infectieuses/"
+        },
+        "Forest Fires": {
+            "pokemons": [
+                "Charmander",
+                "Charmeleon",
+                "Charizard"
+            ],
+            "url": "https://renovables.blog/fr/%C3%A9cosyst%C3%A8me/les-incendies-de-for%C3%AAt-comprendre-leur-origine-et-leur-port%C3%A9e/"
+        },
+        "Plastic Pollution in Oceans": {
+            "pokemons": [
+                "Squirtle",
+                "Wartortle",
+                "Blastoise"
+            ],
+            "url": "https://planetemer.org/infos/actus/d%C3%A9chets-et-pollution-plastique-quel-impact-sur-la-biodiversit%C3%A9-marine"
+        },
+        "Biodiversity Loss Due to Pesticide Use": {
+            "pokemons": [
+                "Caterpie",
+                "Metapod",
+                "Butterfree"
+            ],
+            "url": "https://www.generations-futures.fr/actualites/pesticides-sol/"
+        },
+        "Bee and Other Pollinator Decline": {
+            "pokemons": [
+                "Weedle",
+                "Kakuna",
+                "Beedrill"
+            ],
+            "url": "https://www.mnhn.fr/fr/le-declin-des-insectes-pollinisateurs"
+        },
+        "Air Pollution and Urban Habitat Destruction": {
+            "pokemons": [
+                "Pidgey",
+                "Pidgeotto",
+                "Pidgeot"
+            ],
+            "url": "https://www.mnhn.fr/fr/actualites/pres-de-30-d-oiseaux-en-moins-en-30-ans-dans-les-villes-et-les-campagnes-francaises"
+        },
+        "Habitat Fragmentation Due to Urbanization": {
+            "pokemons": [
+                "Rattata",
+                "Raticate"
+            ],
+            "url": "https://www.projetecolo.com/fragmentation-des-habitats-definition-causes-et-consequences-470.html"
+        },
+        "Noise and Light Pollution": {
+            "pokemons": [
+                "Spearow",
+                "Fearow",
+                "Jigglypuff",
+                "Wigglytuff",
+                "Zubat",
+                "Golbat"
+            ],
+            "url": "https://www.faunesauvage.fr/sinformer/sinformer-articles/la-pollution-sonore-et-lumineuse-modifient-le-comportement-des-oiseaux"
+        },
+        "Destruction of Wetlands": {
+            "pokemons": [
+                "Ekans",
+                "Arbok"
+            ],
+            "url": "https://lanature.ca/2024/10/04/les-serpents-des-allies-meconnus-au-coeur-de-la-biodiversite/"
+        },
+        "Electromagnetic Fields and Forest Habitat Loss": {
+            "pokemons": [
+                "Pikachu",
+                "Raichu"
+            ],
+            "url": "https://www.naturalscience.org/fr/news/2021/10/les-animaux-et-les-plantes-stresses-par-le-rayonnement/"
+        },
+        "Desertification and Loss of Arid Habitats": {
+            "pokemons": [
+                "Sandshrew",
+                "Sandslash"
+            ],
+            "url": "https://www.blog-ecologie.fr/desertification-causes-consequences-solutions/"
+        },
+        "Soil Pollution": {
+            "pokemons": [
+                "Nidoran♀",
+                "Nidorina",
+                "Nidoqueen",
+                "Diglett",
+                "Dugtrio"
+            ],
+            "url": "https://hal.science/file/index/docid/477469/filename/Impact_des_polluants_du_sol_sur_la_biodiversite_animale_du_sol.pdf"
+        },
+        "Water Contamination": {
+            "pokemons": [
+                "Nidoran♂",
+                "Nidorino",
+                "Nidoking"
+            ],
+            "url": "https://www.oceanium.org/comment-la-pollution-de-leau-affecte-les-animaux-marins/"
+        },
+        "Light Pollution Affecting Nocturnal Behavior": {
+            "pokemons": [
+                "Clefairy",
+                "Clefable"
+            ],
+            "url": "https://www.faunesauvage.fr/sinformer/sinformer-articles/especes-nocturnes-la-pollution-lumineuse-piege-ou-barriere"
+        },
+        "Forest Fires and Habitat Destruction": {
+            "pokemons": [
+                "Vulpix",
+                "Ninetales",
+                "Growlithe",
+                "Arcanine"
+            ],
+            "url": "https://www.ifaw.org/fr/journal/consequences-incendies-faune-sauvage"
+        },
+        "Cave Destruction and Noise Pollution": {
+            "pokemons": [
+                "Zubat",
+                "Golbat"
+            ],
+            "url": "https://plan-actions-chiropteres.fr/les-chauve-souris/menaces"
+        },
+        "Excessive Use of Pesticides": {
+            "pokemons": [
+                "Oddish",
+                "Gloom",
+                "Vileplume"
+            ],
+            "url": "https://acapros.fr/avantages-et-inconvenients/avantages-et-inconvenients-des-pesticides/"
+        },
+        "Deforestation and Loss of Symbiotic Fungi": {
+            "pokemons": [
+                "Paras",
+                "Parasect"
+            ],
+            "url": "https://www.afas.fr/symbiose-et-cooperation-entre-les-arbres-et-les-champignons-pour-une-foret-durable/"
+        },
+        "Air Pollution and Habitat Destruction": {
+            "pokemons": [
+                "Venonat",
+                "Venomoth"
+            ],
+            "url": "https://www.blog-ecologie.fr/pollution-de-lair-et-ses-consequences-sur-les-insectes/"
+        },
+        "Urban Habitat Loss and Light Pollution": {
+            "pokemons": [
+                "Meowth",
+                "Persian"
+            ],
+            "url": "https://www.faunesauvage.fr/sinformer/sinformer-articles/especes-nocturnes-la-pollution-lumineuse-piege-ou-barriere"
+        },
+        "Freshwater Pollution": {
+            "pokemons": [
+                "Psyduck",
+                "Golduck"
+            ],
+            "url": "https://amisdulacsaintdenis.files.wordpress.com/2016/04/les-canardsc2a0.pdf"
+        },
+        "Tropical Deforestation": {
+            "pokemons": [
+                "Mankey",
+                "Primeape"
+            ],
+            "url": "https://www.globalforestwatch.org/blog/fr/forest-insights/la-perte-de-forets-primaires-tropicales-sest-aggravee-en-2022-malgre-les-engagements-internationaux-visant-a-mettre-fin-a-la-deforestation/"
+        }
+    }
+}

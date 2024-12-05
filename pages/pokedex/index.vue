@@ -1,51 +1,121 @@
 <template>
-  <div class="p-4 retro-container">
-    <h1 class="text-xl mb-8 text-center">Pokédex</h1>
-    <div v-if="loading" class="text-center">Loading...</div>
-    <div v-else class="carousel-container">
-      <button class="retro-button" @click="previousPokemon">↑</button>
-      <div class="pokemon-display">
-        <PokemonCard :pokemon="pokemonList[currentIndex]" />
+  <div class="pokedex-container" @keydown="handleKeydown" tabindex="0">
+    <div class="scanline"></div> <!-- Trait animé -->
+    <div class="pokedex-left">
+      <h1 class="title">Pokédex National</h1>
+      <div class="pokemon-list rounded-2xl" ref="pokemonListContainer">
+        <div
+            v-for="(pokemon, index) in pokemonList"
+            :key="pokemon.name"
+            :class="['pokemon-item', { active: index === currentIndex }]"
+            @click="selectPokemon(index)"
+        >
+          <div class="pokemon-number">{{ formatNumber(index + 1) }}</div>
+          <div class="pokemon-name pl-4">{{ pokemon.name }}</div>
+        </div>
       </div>
-      <button class="retro-button" @click="nextPokemon">↓</button>
     </div>
+    <div class="pokedex-right">
+      <div class="text-center mb-8">
+        <div ref="qrCodeContainer"></div>
+      </div>
+    </div>
+
+  </div>
+  <div>
+    heelo
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { usePokeAPI } from '@/composables/usePokeAPI';
-import PokemonCard from '@/components/pokemon/PokemonCard.vue';
 
 const { getFirstGeneration } = usePokeAPI();
 const loading = ref(true);
 const pokemonList = ref([]);
 const currentIndex = ref(0);
+const pokemonListContainer = ref(null);
+
+
 
 onMounted(async () => {
-  pokemonList.value = await getFirstGeneration();
+  // Fetch Pokémon data
+  const data = await getFirstGeneration();
+  pokemonList.value = data.map((pokemon, index) => ({
+    ...pokemon,
+    image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`, // Placeholder for Pokémon sprite
+  }));
   loading.value = false;
 });
 
-const nextPokemon = () => {
-  if (currentIndex.value < pokemonList.value.length - 1) {
-    currentIndex.value++;
-  } else {
-    currentIndex.value = 0; // Retour au début si on dépasse la fin.
-  }
+const selectPokemon = (index) => {
+  currentIndex.value = index;
+  updateScrollPosition(); // Update scroll position when a Pokémon is selected
 };
 
-const previousPokemon = () => {
-  if (currentIndex.value > 0) {
-    currentIndex.value--;
-  } else {
-    currentIndex.value = pokemonList.value.length - 1; // Aller à la fin si on remonte depuis le début.
+const formatNumber = (num) => {
+  return num.toString().padStart(3, '0');
+};
+
+// Mettre à jour la position de la barre de défilement
+const updateScrollPosition = () => {
+  const container = pokemonListContainer.value;
+  if (!container) return;
+
+  const itemHeight = container.children[0]?.offsetHeight || 0; // Hauteur d'un élément dans la liste
+  container.scrollTop = itemHeight * currentIndex.value - (container.offsetHeight / 2) + itemHeight / 2;
+};
+
+// Handler pour les flèches du clavier
+const handleKeydown = (event) => {
+  if (event.key === 'ArrowDown') {
+    // Naviguer vers le Pokémon suivant
+    if (currentIndex.value < pokemonList.value.length - 1) {
+      currentIndex.value++;
+      updateScrollPosition();
+    }
+  } else if (event.key === 'ArrowUp') {
+    // Naviguer vers le Pokémon précédent
+    if (currentIndex.value > 0) {
+      currentIndex.value--;
+      updateScrollPosition();
+    }
   }
 };
 </script>
 
-
 <style scoped>
+/* Conteneur principal */
+.pokedex-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  font-family: 'Press Start 2P', cursive;
+  position: relative;
+  overflow: hidden;
+  outline: none; /* Pour éviter le contour bleu de focus sur le conteneur */
+}
+
+/* Trait animé */
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  animation: scanline 6s linear infinite;
+  z-index: 10;
+  background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+  );
+}
+
 @keyframes scanline {
   0% {
     transform: translateY(0);
@@ -55,156 +125,113 @@ const previousPokemon = () => {
   }
 }
 
-@keyframes flicker {
-  0% { opacity: 0.9; }
-  5% { opacity: 0.8; }
-  10% { opacity: 0.9; }
-  15% { opacity: 0.85; }
-  20% { opacity: 0.9; }
-}
-
- .carousel-container {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   gap: 20px;
- }
-
-.pokemon-display {
-  width: 200px;
-  height: 300px;
+/* Partie gauche */
+.pokedex-left {
+  width: 40%;
+  background-color: #f0c838;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 4px solid #ff0000;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.8);
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-}
-
-.pokemon-display img {
-  image-rendering: pixelated;
-  max-width: 100%;
-  max-height: 100%;
-}
-
-body {
-  font-family: 'Press Start 2P', cursive;
-
-  margin: 0;
-  padding: 0;
-}
-
-.retro-container {
-  position: relative;
-  overflow: hidden;
-  min-height: 100vh;
-}
-
-.retro-container::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  z-index: 1;
   background: repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.15) 1px,
+      180deg,
+      #f0c838,
+      #f0c838 1px,
       transparent 1px,
       transparent 2px
   );
-  pointer-events: none;
-  animation: flicker 0.3s infinite;
+
 }
 
-.retro-container::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.1);
-  animation: scanline 6s linear infinite;
-  pointer-events: none;
-}
-
-.retro-button {
-  background-color: #ff0000;
-  border: 3px solid #ffffff;
-  color: #ffffff;
-  padding: 15px 30px;
-  font-family: 'Press Start 2P', cursive;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-}
-
-.retro-button:hover {
-  background-color: #ffffff;
-  color: #ff0000;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-}
-
-.pokemon-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.pokemon-card {
-  border: 4px solid #ff0000;
-  padding: 15px;
+.title {
+  font-size: 1.5rem;
   text-align: center;
-  transition: all 0.3s ease;
+  margin-bottom: 20px;
+  background-color: #F8C080;
+  border-radius: 10px;
+  padding: 10px;
+  border: 4px solid #000;
+  color: #fff;
+  text-shadow: 2px 2px  #000;
+}
+
+.pokemon-list {
+  width: 100%;
+  max-height: 80%;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border: 4px solid #000;
+  padding: 10px;
+  color: #000;
+}
+
+.pokemon-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  margin: 6px 0;
+  border-radius: 20px;
   cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: #fff;
   position: relative;
-  overflow: hidden;
 }
 
-.pokemon-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+.pokemon-item.active {
+  background-color: #ffa500; /* Couleur d'arrière-plan surbrillance */
+  color: #fff; /* Couleur du texte en surbrillance */
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombre pour donner un effet de profondeur */
+  border: 2px solid #ff0000; /* Bordure rouge pour plus de contraste */
 }
 
-.pokemon-card img {
-  image-rendering: pixelated;
-  width: 120px;
-  height: 120px;
+.pokemon-number {
+  width: 40px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #000;
 }
 
-.pokemon-card .name {
-  margin-top: 10px;
-  font-size: 12px;
-  color: #ffffff;
-  text-transform: uppercase;
+.pokemon-name {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 10px;
 }
 
-.pokemon-detail {
-  max-width: 800px;
-  margin: 0 auto;
+/* Partie droite */
+.pokedex-right {
+  width: 60%;
+  background: repeating-linear-gradient(
+      180deg,
+      #6078A0,
+      #6078A0 1px,
+      transparent 1px,
+      transparent 2px
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  background-color: #111;
-  border: 4px solid #ff0000;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  border-left: 4px solid #000;
+  z-index: 1;
 }
 
-.stat-bar {
-  background-color: #333;
-  height: 20px;
-  margin: 5px 0;
-  position: relative;
+.pokemon-details {
+  text-align: center;
 }
 
-.stat-bar-fill {
-  background-color: #ff0000;
-  height: 100%;
-  transition: width 1s ease-in-out;
+.pokemon-image {
+  max-width: 80%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.pokemon-name-detail {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-top: 10px;
 }
 </style>
