@@ -17,6 +17,7 @@
       <div class="flex mt-4">
         <p class="pr-2">Use the arrow keys to navigate the Pokédex.</p>
         <UKbd>↑</UKbd> <UKbd class="ml-2">↓</UKbd>
+        Or <UKbd class="ml-2">←</UKbd> <UKbd class="ml-2">→</UKbd> to navigate by 10.
       </div>
     </div>
     <div class="pokedex-right">
@@ -86,6 +87,16 @@ const handleKeydown = (event) => {
       currentIndex.value--;
       updateScrollPosition();
     }
+  } else if (event.key === 'ArrowRight') {
+    // Naviguer vers le Pokémon suivant par groupe de 10
+    const newIndex = Math.min(currentIndex.value + 10, pokemonList.value.length - 1);
+    currentIndex.value = newIndex;
+    updateScrollPosition();
+  } else if (event.key === 'ArrowLeft') {
+    // Naviguer vers le Pokémon précédent par groupe de 10
+    const newIndex = Math.max(currentIndex.value - 10, 0);
+    currentIndex.value = newIndex;
+    updateScrollPosition();
   }
 };
 </script>
