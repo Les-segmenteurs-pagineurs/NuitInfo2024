@@ -197,11 +197,12 @@ const handleKeydown = (event) => {
 }
 
 .pokemon-item.active {
-  background-color: #ffa500; /* Couleur d'arrière-plan surbrillance */
-  color: #fff; /* Couleur du texte en surbrillance */
+  background-color: #ffa500;
+  color: #fff;
   font-weight: bold;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombre pour donner un effet de profondeur */
-  border: 2px solid #ff0000; /* Bordure rouge pour plus de contraste */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: 2px solid #ff0000;
+  text-shadow: 2px 2px 0 #000;
 }
 
 .pokemon-number {
