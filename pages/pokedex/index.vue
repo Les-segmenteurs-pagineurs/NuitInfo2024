@@ -202,7 +202,6 @@ const handleKeydown = (event) => {
   font-weight: bold;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border: 2px solid #ff0000;
-  text-shadow: 2px 2px 0 #000;
 }
 
 .pokemon-number {
