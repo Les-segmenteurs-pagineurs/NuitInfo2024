@@ -26,8 +26,8 @@
       <div v-if="showModal" class="modal-overlay">
         <div class="modal-content">
           <button @click="closeModal" class="modal-close-button">&times;</button>
-          <video v-if="selectedItem.type === 'video'" :src="`/media/${selectedItem.url}`" controls class="media-player"></video>
-          <audio v-else :src="`/media/${selectedItem.url}`" controls class="media-player"></audio>
+          <video v-if="selectedItem.type === 'video'" :src="`http://klebert-host.com:33043/media/${selectedItem.url}`" controls class="media-player"></video>
+          <audio v-else :src="`http://klebert-host.com:33043/media/${selectedItem.url}`" controls class="media-player"></audio>
         </div>
       </div>
     </div>
