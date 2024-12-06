@@ -13,7 +13,8 @@
       <div class="flex mt-4 flex-col text-xl">
         <div>
           <p class="pr-2">Utilisez les touches
-            <UKbd>↑</UKbd><UKbd class="ml-2">↓</UKbd>
+            <UKbd>↑</UKbd>
+            <UKbd class="ml-2">↓</UKbd>
             pour naviguer.
           </p>
         </div>
@@ -47,6 +48,7 @@ const pokemonList = ref([]);
 const currentIndex = ref(0);
 const pokemonListContainer = ref(null);
 const qrCodeContainer = ref<HTMLDivElement | null>(null);
+
 
 onMounted(async () => {
   // Fetch Pokémon data de la première génération
@@ -88,8 +90,13 @@ const updateScrollPosition = () => {
   const container = pokemonListContainer.value;
   if (!container) return;
 
-  const itemHeight = container.children[0]?.offsetHeight || 0; // Hauteur d'un élément dans la liste
-  container.scrollTop = itemHeight * currentIndex.value - (container.offsetHeight / 2) + itemHeight / 2;
+  const activeItem = container.children[currentIndex.value];
+  if (activeItem) {
+    activeItem.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  }
 };
 
 // Handler pour les flèches du clavier
@@ -136,7 +143,6 @@ const generateCustomQRCode = async () => {
     const routeUrl = pokemonUrl ? pokemonUrl : `${window.location.origin}/pokedex/${pokemon.name}`;
 
     const species = await getPokemonSpeciesByName(pokemon.name);
-    console.log(species.names);
     let primaryColor = species ? species.color.name : '#ffffff';
 
     if (primaryColor == 'white') {
