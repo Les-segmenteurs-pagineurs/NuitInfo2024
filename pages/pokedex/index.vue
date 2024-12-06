@@ -32,12 +32,11 @@
         <h2 class="pokemon-name-detail">{{ pokemonList[currentIndex]?.nameFR }}</h2>
       </div>
     </ULink>
-
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 import { usePokeAPI } from '@/composables/usePokeAPI';
 import urlsPokemons from '@/assets/urls_pokemons.json';
 import QRCodeStyling from 'qr-code-styling';
@@ -48,7 +47,6 @@ const pokemonList = ref([]);
 const currentIndex = ref(0);
 const pokemonListContainer = ref(null);
 const qrCodeContainer = ref<HTMLDivElement | null>(null);
-
 
 onMounted(async () => {
   // Fetch Pokémon data de la première génération
@@ -64,14 +62,13 @@ onMounted(async () => {
       return {
         ...pokemon,
         nameFR: frenchName,
-        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`, // Placeholder for Pokémon sprite
+        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`,
       };
     })
   );
 
   loading.value = false;
   await nextTick(); // Attendre que le DOM soit mis à jour
-
   generateCustomQRCode();
 });
 
@@ -149,10 +146,13 @@ const generateCustomQRCode = async () => {
       primaryColor = 'black';
     }
 
-    // Créer une instance QRCodeStyling avec la couleur du Pokémon
+    // Détecter le mode "téléphone" (ex: < 768px)
+    const isMobile = window.innerWidth < 768;
+    const qrSize = isMobile ? 300 : 500; // 300px sur mobile, 500px sur desktop
+
     const qrCode = new QRCodeStyling({
-      width: 350,
-      height: 350,
+      width: qrSize,
+      height: qrSize,
       data: routeUrl,
       image: pokemon.image,
       dotsOptions: {
@@ -184,10 +184,12 @@ const generateCustomQRCode = async () => {
 .pokedex-container {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  min-height: 100vh;
+  /* Au lieu de height: 100vh */
   font-family: 'Press Start 2P', cursive;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  /* Au lieu de overflow: hidden */
   outline: none;
   /* Pour éviter le contour bleu de focus sur le conteneur */
 }
@@ -259,6 +261,8 @@ const generateCustomQRCode = async () => {
   padding: 10px;
   color: #000;
   background: #a0872c;
+  -webkit-overflow-scrolling: touch;
+  /* Défilement plus fluide sur iOS */
 }
 
 .pokemon-item {
@@ -276,15 +280,10 @@ const generateCustomQRCode = async () => {
 
 .pokemon-item.active {
   background-color: #ffa500;
-
-  /* Couleur d'arrière-plan surbrillance */
   color: #fff;
-  /* Couleur du texte en surbrillance */
   font-weight: bold;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  /* Ombre pour donner un effet de profondeur */
   border: 2px solid #ff0000;
-  /* Bordure rouge pour plus de contraste */
 }
 
 .pokemon-number {
@@ -321,15 +320,32 @@ const generateCustomQRCode = async () => {
   text-align: center;
 }
 
-.pokemon-image {
-  max-width: 80%;
-  height: auto;
-  margin-bottom: 20px;
-}
-
 .pokemon-name-detail {
   font-size: 1.5rem;
   color: #fff;
   margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pokedex-container {
+    flex-direction: column;
+    /* Pas de height forcée, le contenu déterminera la hauteur */
+  }
+
+  .pokedex-left,
+  .pokedex-right {
+    width: 100%;
+    padding: 10px;
+    border: none;
+  }
+
+  .pokedex-right {
+    border-top: 4px solid #000;
+  }
+
+  .pokemon-list {
+    max-height: 50vh;
+  }
 }
 </style>
