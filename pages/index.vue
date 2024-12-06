@@ -1,11 +1,14 @@
 <script setup lang="ts"></script>
 
 <template>
-  <h1>home page</h1>
-  <ULink to="/pokedex">Pokedex</ULink>
   <div class="full-div">
+    <div class="under-water"></div>
+    <div class="human"></div>
+
+    <div class="absolute bg-gradient-to-r from-transparent to-black"></div>
+
     <div
-      class="flex flex-col circle-div bg-gradient-to-r from-transparent via-slate-900 to-transparent"
+      class="asbolute flex flex-col circle-div bg-gradient-to-r from-transparent via-slate-900 to-transparent"
     >
       <h1 class="title">Les Segmenteurs pagineurs vous proposent...</h1>
       <button
@@ -18,13 +21,29 @@
 </template>
 
 <style scoped>
+.under-water {
+  width: 100%;
+  height: 100%;
+  background-image: url("../assets/img/backgroundUnderWaterHomePage.jpg");
+  object-fit: contain;
+  background-size: 100% 100%;
+}
+.human {
+  width: 100%;
+  height: 100%;
+  background-image: url("../assets/img/backgroundHumanHomePage.jpg");
+  background-repeat: no-repeat;
+  object-fit: cover;
+  background-size: 100% 100%;
+}
 .circle-div {
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: 50rem;
-  height: 50rem;
+  width: 50%;
+  height: 90%;
 }
 .title {
   font-size: xx-large;
