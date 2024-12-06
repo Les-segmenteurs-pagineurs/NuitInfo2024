@@ -1,27 +1,36 @@
 <template>
+  <div v-if="humanDisplay" class="h-100 w-100">
+    <HumanDominantDisplay :OpenHumanModal="OpenHumanModal" :Organs="humanOrgans">
+      <div class="h-100 w-100">
+        <UButton
+          square
+          class="fit sw-btn"
+          color="gray"
+          variant="solid"
+          icon="i-heroicons-arrows-right-left"
+          @click="humanDisplay = !humanDisplay"
+        />
+      </div>
+    </HumanDominantDisplay>
+  </div>
 
-    <div v-if="humanDisplay" class="h-100 w-100">
-        <HumanDominantDisplay :OpenHumanModal="OpenHumanModal" :Organs="humanOrgans"
-            >
-            <div class="h-100 w-100">
-                <UButton square class="fit sw-btn" color="gray" variant="solid" icon="i-heroicons-arrows-right-left"
-                    @click="humanDisplay = !humanDisplay" />
-            </div>
-        </HumanDominantDisplay>
-    </div>
-
-    <div v-else class="h-100 w-100">
-        <OceanDominantDisplay
+  <div v-else class="h-100 w-100">
+    <OceanDominantDisplay        
         :OpenSeaModal="OpenSeaModal"
         :Organs="seaOrgans"
         >
-            <UButton square class="fit sw-btn" color="gray" variant="solid" icon="i-heroicons-arrows-right-left"
-                @click="humanDisplay = !humanDisplay" />
-        </OceanDominantDisplay>
-    </div>
+      <UButton
+        square
+        class="fit sw-btn"
+        color="gray"
+        variant="solid"
+        icon="i-heroicons-arrows-right-left"
+        @click="humanDisplay = !humanDisplay"
+      />
+    </OceanDominantDisplay>
+  </div>
 
-
-    <UModal v-for="item in humanOrgans" :key="item.id" v-model="item.modalOpen">
+  <UModal v-for="item in humanOrgans" :key="item.id" v-model="item.modalOpen">
         <div class="flex-col">
             <UButton square class="fit m1" color="green" :label="item.answer_a" @click="human_a_clicked(item)"/>
             <UButton square class="fit m1" color="red" :label="item.answer_b"  @click="human_b_clicked(item)"/>
@@ -34,11 +43,7 @@
             <UButton square class="fit m1" color="red" :label="item.answer_b"  @click="sea_b_clicked(item)"/>
         </div>
     </UModal>
-
-
-
 </template>
-
 
 <script setup lang="ts">
 
@@ -101,5 +106,10 @@ function sea_b_clicked(organ : any){
 
 .m1 {
     margin: 0.5rem;
+}
+.sw-btn {
+  position: absolute;
+  left: 21.5vw;
+  top: 25vh;
 }
 </style>
