@@ -65,10 +65,10 @@ function OpenHumanModal(organ: any) {
 }
 
 function human_a_clicked(organ : any){
-    alert(`${organ.yes_message} money : ${organ.yes_money} health : ${organ.yes_health}`)
+    alert(`${organ.answer_a_message} money : ${organ.answer_a_money} health : ${organ.answer_a_health}`)
 }
 function human_b_clicked(organ : any){
-    alert(`${organ.no_message} money : ${organ.no_money} health : ${organ.no_health}`)
+    alert(`${organ.answer_b_message} money : ${organ.answer_b_money} health : ${organ.answer_b_health}`)
 }
 
 
