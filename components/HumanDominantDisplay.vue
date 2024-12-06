@@ -30,8 +30,8 @@
 
 <script setup lang="ts">
 
-import '~/assets/css/game.scss'
-import '~/assets/css/bootstrapWish.scss'
+import 'assets/css/game.css'
+import 'assets/css/bootstrapWish.css'
 
 import { defineProps } from 'vue';
 

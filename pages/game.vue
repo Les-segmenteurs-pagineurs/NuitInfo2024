@@ -72,7 +72,7 @@
 
 
 
-import "~/assets/css/bootstrapWish.scss"
+import "assets/css/bootstrapWish.css"
 import { ref } from 'vue'
 import HumanDominantDisplay from '~/components/HumanDominantDisplay.vue';
 

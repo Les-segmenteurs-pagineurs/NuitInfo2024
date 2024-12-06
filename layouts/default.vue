@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import "~/assets/css/bootstrapWish.scss";
+import "assets/css/bootstrapWish.css";
 
 let isLogged = false;
 
@@ -49,17 +49,16 @@ const links = [
       to: "/",
     },
     {
-      label: "Dashboard",
-      icon: "i-heroicons-chart-bar",
-      to: "/dashboard",
+      label: "Pokedex",
+      icon: "i-heroicons-wallet",
+      to: "/pokedex",
     },
-  ],
-  [
-    ...userLink,
     {
-      label: "Help",
-      icon: "i-heroicons-question-mark-circle",
+      label: "Podcasts",
+      icon: "i-heroicons-wallet",
+      to: "/podcast",
     },
   ],
+  [...userLink],
 ];
 </script>
