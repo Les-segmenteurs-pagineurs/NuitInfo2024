@@ -14,16 +14,27 @@
     "@nuxt/ui": "^2.19.2",
     "@nuxt/ui-pro": "^1.5.0",
     "@prisma/nuxt": "^0.0.35",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
     "axios": "^1.7.9",
     "nuxt": "^3.14.1592",
     "prisma": "^6.0.1",
     "qr-code-styling": "^1.8.4",
     "superstruct": "^2.0.2",
-    "vue": "latest"
+    "vue": "latest",
+    "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.2",
     "@prisma/client": "^5.22.0",
-    "sass-embedded": "^1.82.0"
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.10.1",
+    "sass-embedded": "^1.82.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   }
 }
