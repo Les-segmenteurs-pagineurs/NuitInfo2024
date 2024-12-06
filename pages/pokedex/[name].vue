@@ -7,7 +7,7 @@
           Back to List
         </NuxtLink>
 
-        <div class="scanline"></div> <!-- Trait animé -->
+        <div class="scanline"></div>
         <h1 class="text-2xl mb-4 text-center text-shadow">{{ pokemonNameFR }}</h1>
 
         <div class="text-center mb-8 w-full flex justify-center">
@@ -90,7 +90,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* Trait animé */
 .scanline {
   position: absolute;
   top: 0;
@@ -130,7 +129,6 @@ onMounted(async () => {
       transparent 2px,
       transparent 3px);
 
-  /* Par défaut en colonne, centrée */
   display: flex;
   flex-direction: column;
   align-items: center;

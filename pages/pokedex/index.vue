@@ -49,16 +49,13 @@ const pokemonListContainer = ref(null);
 const qrCodeContainer = ref<HTMLDivElement | null>(null);
 
 onMounted(async () => {
-  // Fetch Pokémon data de la première génération
   const data = await getFirstGeneration();
   pokemonList.value = await Promise.all(
     data.map(async (pokemon, index) => {
-      // Récupérer l'espèce du Pokémon pour obtenir le nom français
       const species = await getPokemonSpeciesByName(pokemon.name);
       const frenchNameObject = species.names.find(name => name.language.name === 'fr');
       const frenchName = frenchNameObject ? frenchNameObject.name : pokemon.name;
 
-      // Retourner un objet Pokémon avec le nom français ajouté
       return {
         ...pokemon,
         nameFR: frenchName,
@@ -68,21 +65,20 @@ onMounted(async () => {
   );
 
   loading.value = false;
-  await nextTick(); // Attendre que le DOM soit mis à jour
+  await nextTick();
   generateCustomQRCode();
 });
 
 const selectPokemon = (index) => {
   currentIndex.value = index;
   generateCustomQRCode();
-  updateScrollPosition(); // Update scroll position when a Pokémon is selected
+  updateScrollPosition();
 };
 
 const formatNumber = (num) => {
   return num.toString().padStart(3, '0');
 };
 
-// Mettre à jour la position de la barre de défilement
 const updateScrollPosition = () => {
   const container = pokemonListContainer.value;
   if (!container) return;
@@ -96,27 +92,22 @@ const updateScrollPosition = () => {
   }
 };
 
-// Handler pour les flèches du clavier
 const handleKeydown = (event) => {
   if (event.key === 'ArrowDown') {
-    // Naviguer vers le Pokémon suivant
     if (currentIndex.value < pokemonList.value.length - 1) {
       currentIndex.value++;
       updateScrollPosition();
     }
   } else if (event.key === 'ArrowUp') {
-    // Naviguer vers le Pokémon précédent
     if (currentIndex.value > 0) {
       currentIndex.value--;
       updateScrollPosition();
     }
   } else if (event.key === 'ArrowRight') {
-    // Naviguer vers le Pokémon suivant par groupe de 10
     const newIndex = Math.min(currentIndex.value + 10, pokemonList.value.length - 1);
     currentIndex.value = newIndex;
     updateScrollPosition();
   } else if (event.key === 'ArrowLeft') {
-    // Naviguer vers le Pokémon précédent par groupe de 10
     const newIndex = Math.max(currentIndex.value - 10, 0);
     currentIndex.value = newIndex;
     updateScrollPosition();
@@ -146,9 +137,8 @@ const generateCustomQRCode = async () => {
       primaryColor = 'black';
     }
 
-    // Détecter le mode "téléphone" (ex: < 768px)
     const isMobile = window.innerWidth < 768;
-    const qrSize = isMobile ? 300 : 500; // 300px sur mobile, 500px sur desktop
+    const qrSize = isMobile ? 300 : 500;
 
     const qrCode = new QRCodeStyling({
       width: qrSize,
@@ -170,31 +160,24 @@ const generateCustomQRCode = async () => {
       version: 3,
     });
 
-    // Vider le container avant de dessiner le QR code
     qrCodeContainer.value.innerHTML = '';
 
-    // Ajouter le QR code au container
     qrCode.append(qrCodeContainer.value);
   }
 };
 </script>
 
 <style scoped>
-/* Conteneur principal */
 .pokedex-container {
   display: flex;
   flex-direction: row;
   min-height: 100vh;
-  /* Au lieu de height: 100vh */
   font-family: 'Press Start 2P', cursive;
   position: relative;
   overflow-x: hidden;
-  /* Au lieu de overflow: hidden */
   outline: none;
-  /* Pour éviter le contour bleu de focus sur le conteneur */
 }
 
-/* Trait animé */
 .scanline {
   position: absolute;
   top: 0;
@@ -221,7 +204,6 @@ const generateCustomQRCode = async () => {
   }
 }
 
-/* Partie gauche */
 .pokedex-left {
   width: 60%;
   background-color: #f0c838;
@@ -262,7 +244,6 @@ const generateCustomQRCode = async () => {
   color: #000;
   background: #a0872c;
   -webkit-overflow-scrolling: touch;
-  /* Défilement plus fluide sur iOS */
 }
 
 .pokemon-item {
@@ -299,7 +280,6 @@ const generateCustomQRCode = async () => {
   margin-left: 10px;
 }
 
-/* Partie droite */
 .pokedex-right {
   width: 60%;
   background: repeating-linear-gradient(180deg,
@@ -326,11 +306,9 @@ const generateCustomQRCode = async () => {
   margin-top: 10px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .pokedex-container {
     flex-direction: column;
-    /* Pas de height forcée, le contenu déterminera la hauteur */
   }
 
   .pokedex-left,
