@@ -1,38 +1,42 @@
 <template>
-  <div class="p-4">
-    <NuxtLink to="/pokedex" class="retro-button mb-8 inline-block">
-      Back to List
-    </NuxtLink>
+  <div class="p-4 w-3/5 self-center h-screen">
 
     <div v-if="loading" class="text-center">Loading...</div>
     <div v-else-if="pokemon" class="pokemon-detail">
-      <h1 class="text-xl mb-4 text-center">{{ formattedName }}</h1>
+      <div class="flex-col" >
+        <NuxtLink to="/pokedex" class="retro-button mb-8 inline-block">
+          Back to List
+        </NuxtLink>
+        <div class="scanline"></div> <!-- Trait animé -->
+        <h1 class="text-2xl mb-4 text-center text-shadow">{{ pokemonNameFR }}</h1>
 
-      <div class="text-center mb-8">
-        <img :src="pokemon.sprites.front_default" :alt="pokemon.name" class="mx-auto"
-          style="width: 200px; height: 200px; image-rendering: pixelated;">
-      </div>
-
-      <div class="mb-6">
-        <div class="mb-2">Types:</div>
-        <div class="flex gap-2">
-          <span v-for="type in pokemon.types" :key="type.type.name" class="px-3 py-1 bg-red-600 rounded">
-            {{ type.type.name }}
-          </span>
+        <div class="text-center mb-8">
+          <img :src="pokemon.sprites.front_default" :alt="image" class="mx-auto -my-24"
+            style="width: 512px; height: 512px; image-rendering: pixelated;">
         </div>
-      </div>
 
-      <div class="grid grid-cols-2 gap-4 mb-6">
-        <div>Height: {{ pokemon.height / 10 }}m</div>
-        <div>Weight: {{ pokemon.weight / 10 }}kg</div>
-      </div>
+        <div class="m-auto w-5/6">
+          <p>
+            <span v-if="text" class="text-white text-xl text-shadow">{{ text }}</span>
+          </p>
+        </div>
+        <div class="m-auto w-5/6 mt-8 h-100%">
+          <h3 class="text-xl text-shadow mb-4">Source: </h3>
+          <iframe
+              v-if="url"
+              :src="url"
+              class="w-full"
+              style="height: 600px; border: none;">
+          </iframe>
+        </div>
 
-      <StatsDisplay :stats="formattedStats" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import urlsPokemons from '@/assets/urls_pokemons.json';
 import { usePokeAPI } from '@/composables/usePokeAPI';
 const route = useRoute();
 const { getPokemonByName } = usePokeAPI();
@@ -53,75 +57,93 @@ const formattedStats = computed(() => {
   }));
 });
 
+const getPokemonUrl = (pokemonName) => {
+  console.log("pokemonName", pokemonName);
+  for (const issue in urlsPokemons.pokemon_issues) {
+    if (urlsPokemons.pokemon_issues[issue].pokemons.includes(pokemonName)) {
+      text = urlsPokemons.pokemon_issues[issue].text;
+      url = urlsPokemons.pokemon_issues[issue].url;
+      console.log("text", text);
+      return { text, url };
+    }
+  }
+  return null;
+};
+
+let issue: any = null;
+let text: string | null = null;
+let url: string | null = null;
+
+let pokemonNameFR: string | null = null;
+
+async function getPokemonnNameFR(pokemonName: string) {
+  const species = await usePokeAPI().getPokemonSpeciesByName(pokemonName);
+  const frenchNameObject = species.names.find(name => name.language.name === 'fr');
+  return frenchNameObject ? frenchNameObject.name : pokemonName;
+}
+
 onMounted(async () => {
   const name = route.params.name as string;
   pokemon.value = await getPokemonByName(name);
+
+  issue = getPokemonUrl(name.charAt(0).toUpperCase() + name.slice(1));
+  pokemonNameFR = await getPokemonnNameFR(name);
+  console.log("pokemonNameFR", pokemonNameFR);
   loading.value = false;
 });
+
 </script>
 
 
 <style scoped>
-.retro-button:hover {
-  background-color: #ffffff;
-  color: #ff0000;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+/* Trait animé */
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  animation: scanline 6s linear infinite;
+  z-index: 10;
+  background: repeating-linear-gradient(0deg,
+  rgba(0, 0, 0, 0.15),
+  rgba(0, 0, 0, 0.15) 1px,
+  transparent 1px,
+  transparent 2px);
 }
 
-.pokemon-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
+@keyframes scanline {
+  0% {
+    transform: translateY(0);
+  }
 
-.pokemon-card {
-  border: 4px solid #ff0000;
-  padding: 15px;
-  text-align: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.pokemon-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
-}
-
-.pokemon-card img {
-  image-rendering: pixelated;
-  width: 120px;
-  height: 120px;
-}
-
-.pokemon-card .name {
-  margin-top: 10px;
-  font-size: 12px;
-  color: #ffffff;
-  text-transform: uppercase;
+  100% {
+    transform: translateY(100vh);
+  }
 }
 
 .pokemon-detail {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #111;
-  border: 4px solid #ff0000;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
-}
-
-.stat-bar {
-  background-color: #333;
-  height: 20px;
-  margin: 5px 0;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  font-family: 'Press Start 2P', cursive;
   position: relative;
+  overflow: hidden;
+  outline: none;
+  background-color: #f0c838;
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  z-index: 1;
+  background: repeating-linear-gradient(180deg,
+  #f0c838,
+  #f0c838 2px,
+  transparent 2px,
+  transparent 3px);
 }
 
-.stat-bar-fill {
-  background-color: #ff0000;
-  height: 100%;
-  transition: width 1s ease-in-out;
+.text-shadow {
+  text-shadow: 2px 2px 4px #000000;
 }
 </style>
