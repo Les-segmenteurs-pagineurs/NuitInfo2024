@@ -7,9 +7,18 @@
     <slot />
     <div class="border-t border-gray-200 dark:border-gray-800 footer"></div>
   </div>
+  <div class="flex flex-col h-screen">
+    <UHorizontalNavigation
+      :links="links"
+      class="border-b border-gray-200 dark:border-gray-800"
+    />
+    <slot />
+    <div class="border-t border-gray-200 dark:border-gray-800 footer"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
+import "assets/css/bootstrapWish.css";
 
 // Utilisation du cookie d'authentification
 const isLogged = useCookie("authToken").value;
