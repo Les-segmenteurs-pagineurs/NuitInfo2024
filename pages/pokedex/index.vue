@@ -146,10 +146,13 @@ const generateCustomQRCode = async () => {
       primaryColor = 'black';
     }
 
-    // Créer une instance QRCodeStyling avec la couleur du Pokémon
+    // Détecter le mode "téléphone" (ex: < 768px)
+    const isMobile = window.innerWidth < 768;
+    const qrSize = isMobile ? 300 : 500; // 300px sur mobile, 500px sur desktop
+
     const qrCode = new QRCodeStyling({
-      width: 500,
-      height: 500,
+      width: qrSize,
+      height: qrSize,
       data: routeUrl,
       image: pokemon.image,
       dotsOptions: {
