@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import "~/assets/css/bootstrapWish.scss";
+import "assets/css/bootstrapWish.css";
 
 let isLogged = false;
 

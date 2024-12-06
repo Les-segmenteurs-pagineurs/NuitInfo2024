@@ -26,7 +26,7 @@
 <script setup lang="ts">
 
 import type { FormError } from '#ui/types'
-import "~/assets/css/bootstrapWish.scss"
+import "assets/css/bootstrapWish.css"
 import { object, string, nonempty, type Infer } from 'superstruct'
 import type { FormSubmitEvent } from '#ui/types'
 
