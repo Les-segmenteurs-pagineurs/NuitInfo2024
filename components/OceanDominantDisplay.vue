@@ -27,7 +27,6 @@
       </div>
     </div>
   </div>
-  <UButton v-for="organ in props.Organs" class="fit" color="gray" variant="solid" :label="organ.name" @click="myOpenSeaModal(organ)"/>
 
 </template>
 

@@ -18,14 +18,14 @@
         class="background-human"
       />
       <div class="human-icons">
-        <img src="../assets/img/hearth.svg" alt="Hearth Icon" class="hearth hovereffect" />
-        <img src="../assets/img/kidneys.svg" alt="Kidney Icon" class="kidney hovereffect" />
-        <img src="../assets/img/liver.svg" alt="liver Icon" class="liver hovereffect" />
-        <img src="../assets/img/lungs.svg" alt="lungs Icon" class="lungs hovereffect" />
+        <img src="../assets/img/hearth.svg" alt="Hearth Icon" class="hearth hovereffect" @click="myOpenHumanModal('Coeur')" />
+        <img src="../assets/img/kidneys.svg" alt="Kidney Icon" class="kidney hovereffect" @click="myOpenHumanModal('Poumons')" />
+        <img src="../assets/img/liver.svg" alt="liver Icon" class="liver hovereffect" @click="myOpenHumanModal('Reins')" />
+        <img src="../assets/img/lungs.svg" alt="lungs Icon" class="lungs hovereffect" @click="myOpenHumanModal('Foie')" />
       </div>
     </div>
   </div>
-  <UButton v-for="organ in props.Organs" class="fit" color="gray" variant="solid" :label="organ.name" @click="myOpenHumanModal(organ)"/>
+  <!-- <UButton v-for="organ in props.Organs" class="fit" color="gray" variant="solid" :label="organ.name" @click="myOpenHumanModal(organ)"/> -->
 </template>
 
 <script setup lang="ts">
@@ -42,9 +42,12 @@ const props = defineProps({
 
   })
 
-function myOpenHumanModal(organ : any){
-  if (props.OpenHumanModal){
-    props.OpenHumanModal(organ)
+function myOpenHumanModal(nameOrgan : any){
+  if(props.Organs){
+    const index = props.Organs.findIndex((o) => o.name == nameOrgan)
+    if (props.OpenHumanModal){
+      props.OpenHumanModal(props.Organs[index])
+    }
   }
 }
 
