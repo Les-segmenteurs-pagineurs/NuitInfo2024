@@ -55,7 +55,7 @@ const links = [
     },
     {
       label: "Podcasts",
-      icon: "i-heroicons-wallet",
+      icon: "i-heroicons-microphone",
       to: "/podcast",
     },
   ],
