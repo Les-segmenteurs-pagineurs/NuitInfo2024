@@ -10,7 +10,7 @@
           <div class="pokemon-name pl-4">{{ pokemon.nameFR }}</div>
         </div>
       </div>
-      <div class="flex mt-4 flex-col text-xl">
+      <div class="flex mt-2 flex-col text-xl">
         <div>
           <p class="pr-2">Utilisez les touches
             <UKbd>↑</UKbd>
@@ -137,7 +137,7 @@ const generateCustomQRCode = async () => {
   const pokemon = pokemonList.value[currentIndex.value];
   if (qrCodeContainer.value && pokemon) {
     const pokemonUrl = getPokemonUrl(pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1));
-    const routeUrl = pokemonUrl ? pokemonUrl : `${window.location.origin}/pokedex/${pokemon.name}`;
+    const routeUrl = `${window.location.origin}/pokedex/${pokemon.name}`;
 
     const species = await getPokemonSpeciesByName(pokemon.name);
     let primaryColor = species ? species.color.name : '#ffffff';

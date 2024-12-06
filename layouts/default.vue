@@ -5,7 +5,16 @@
       class="border-b border-gray-200 dark:border-gray-800"
     />
     <slot />
-    <div class="border-t border-gray-200 dark:border-gray-800 footer"></div>
+    <div class="border-t border-gray-200 dark:border-gray-800 footer">
+      <div class="container mx-auto py-2">
+        <div class="text-center text-sm text-gray-500 dark:text-gray-400">
+          © 2024 - Made with ❤️ by
+          <UButton variant="ghost">
+            <ULink to="https://github.com/Les-segmenteurs-pagineurs/NuitInfo2024">Les segmenteurs pagineurs</ULink>
+          </UButton>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

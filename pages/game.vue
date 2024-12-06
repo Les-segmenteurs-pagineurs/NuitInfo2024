@@ -1,6 +1,4 @@
 <template>
-
-
   <div v-if="humanDisplay" class="h-100 w-100">
     <HumanDominantDisplay :OpenHumanModal="OpenHumanModal" :Organs="humanOrgans">
       <div class="h-100 w-100">
@@ -41,24 +39,55 @@
     </OceanDominantDisplay>
   </div>
 
-  <UModal v-for="item in humanOrgans" :key="item.id" v-model="item.modalOpen">
-    <div class="flex-col">
-      <UButton square class="fit m1" color="green" :label="item.answer_a" @click="human_a_clicked(item)" />
-      <UButton square class="fit m1" color="red" :label="item.answer_b" @click="human_b_clicked(item)" />
-    </div>
+  <UModal v-for="item in humanOrgans" :key="item.id" v-model="item.modalOpen" prevent-close>
+    <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+      <template #header>
+        <div class="flex items-center justify-between">
+          <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+            Quelle action choisissez-vous ?
+          </h3>
+          <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="item.modalOpen = false" />
+        </div>
+      </template>
+      <div class="flex-col">
+        <UButton square class="fit m1" color="green" :label="item.answer_a" @click="human_a_clicked(item)" />
+        <UButton square class="fit m1" color="red" :label="item.answer_b" @click="human_b_clicked(item)" />
+      </div>
+    </UCard>
   </UModal>
 
-  <UModal v-for="item in seaOrgans" :key="item.id" v-model="item.modalOpen">
-    <div class="flex-col">
-      <UButton square class="fit m1" color="green" :label="item.answer_a" @click="sea_a_clicked(item)" />
-      <UButton square class="fit m1" color="red" :label="item.answer_b" @click="sea_b_clicked(item)" />
-    </div>
+  <UModal v-for="item in seaOrgans" :key="item.id" v-model="item.modalOpen" prevent-close>
+    <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+      <template #header>
+        <div class="flex items-center justify-between">
+          <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+            Quelle action choisissez-vous ?
+          </h3>
+          <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="item.modalOpen = false" />
+        </div>
+      </template>
+      <div class="flex-col">
+        <UButton square class="fit m1" color="green" :label="item.answer_a" @click="sea_a_clicked(item)" />
+        <UButton square class="fit m1" color="red" :label="item.answer_b" @click="sea_b_clicked(item)" />
+      </div>
+    </UCard>
   </UModal>
 
-  <UModal v-model="isMessageModalOpen">
-    <div class="flex-col m2">
-      <h1>{{ message }}</h1>
-    </div>
+  <UModal v-model="isMessageModalOpen" prevent-close>
+    <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+      <template #header>
+        <div class="flex items
+        -center justify-between">
+          <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+            Message
+          </h3>
+          <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="check_stats" />
+        </div>
+      </template>
+      <div class="flex-col">
+        <p class="m1">{{ message }}</p>
+      </div>
+    </UCard>
   </UModal>
 
 
@@ -84,7 +113,7 @@ let humanOrgans = reactive(await $fetch("/api/humanorgan"))
 let seaOrgans = reactive(await $fetch("/api/seaorgan"))
 
 let health = ref(50)
-let money = ref(50) 
+let money = ref(50)
 let message = ref("")
 
 let isMessageModalOpen = ref(false)
@@ -101,12 +130,14 @@ function set_stats(health_modifier: number, money_modifier: number) {
 function human_a_clicked(organ: any) {
   set_stats(organ.answer_a_health, organ.answer_a_money)
   message = organ.answer_a_message
+  humanDisplay.value = !humanDisplay.value
   organ.modalOpen = false
   isMessageModalOpen.value = true
 }
 function human_b_clicked(organ: any) {
   set_stats(organ.answer_b_health, organ.answer_b_money)
   message = organ.answer_b_message
+  humanDisplay.value = !humanDisplay.value
   organ.modalOpen = false
   isMessageModalOpen.value = true
 }
@@ -119,6 +150,7 @@ function OpenSeaModal(organ: any) {
 function sea_a_clicked(organ: any) {
   set_stats(organ.answer_a_health, organ.answer_a_money)
   message = organ.answer_a_message
+  humanDisplay.value = !humanDisplay.value
   organ.modalOpen = false
   isMessageModalOpen.value = true
 
@@ -126,11 +158,15 @@ function sea_a_clicked(organ: any) {
 function sea_b_clicked(organ: any) {
   set_stats(organ.answer_b_health, organ.answer_b_money)
   message = organ.answer_b_message
+  humanDisplay.value = !humanDisplay.value
   organ.modalOpen = false
   isMessageModalOpen.value = true
 }
 
-
+function check_stats() {
+  isMessageModalOpen.value = false
+  console.log(money.value)
+}
 </script>
 
 <style scoped>
