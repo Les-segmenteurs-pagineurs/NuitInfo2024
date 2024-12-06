@@ -52,7 +52,6 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     body: event.data 
   })
 
-  console.log("body",body)
 
 }
 
