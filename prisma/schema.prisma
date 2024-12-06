@@ -21,17 +21,20 @@ model HumanOrgan {
   name String @unique
   question String
 
-  yes_message String
-  yes_money Int
-  yes_health Int
+  answer_a String
+  answer_a_message String  
+  answer_a_money Int
+  answer_a_health Int
 
-  no_message String
-  no_money Int
-  no_health Int
+  answer_b String
+  answer_b_message String
+  answer_b_money Int
+  answer_b_health Int
 
   modalOpen Boolean @default(false)
 
 }
+
 model SeaOrgan {
   id    Int     @id @default(autoincrement())
   name String @unique
