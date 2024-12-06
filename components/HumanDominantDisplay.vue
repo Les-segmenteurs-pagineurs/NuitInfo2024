@@ -1,7 +1,3 @@
-<script setup lang="ts">
-// import "~/assets/css/game.scss";
-import "~/assets/css/bootstrapWish.scss";
-</script>
 
 <template>
   <div class="main">
@@ -14,14 +10,6 @@ import "~/assets/css/bootstrapWish.scss";
         />
         <slot />
       </div>
-      <div class="stats">
-        <h2>Explication</h2>
-        <ul>
-          <li>stat</li>
-          <li>stat</li>
-          <li>stat</li>
-        </ul>
-      </div>
     </div>
     <div class="h-100 right-side">
       <img
@@ -30,10 +18,10 @@ import "~/assets/css/bootstrapWish.scss";
         class="background-human"
       />
       <div class="human-icons">
-        <img src="../assets/img/hearth.svg" alt="Hearth Icon" class="hearth" />
-        <img src="../assets/img/kidneys.svg" alt="Kidney Icon" class="kidney" />
-        <img src="../assets/img/liver.svg" alt="liver Icon" class="liver" />
-        <img src="../assets/img/lungs.svg" alt="lungs Icon" class="lungs" />
+        <img src="../assets/img/hearth.svg" alt="Hearth Icon" class="hearth hovereffect" />
+        <img src="../assets/img/kidneys.svg" alt="Kidney Icon" class="kidney hovereffect" />
+        <img src="../assets/img/liver.svg" alt="liver Icon" class="liver hovereffect" />
+        <img src="../assets/img/lungs.svg" alt="lungs Icon" class="lungs hovereffect" />
       </div>
     </div>
   </div>
@@ -44,6 +32,7 @@ import "~/assets/css/bootstrapWish.scss";
 
 import '~/assets/css/game.scss'
 import '~/assets/css/bootstrapWish.scss'
+
 import { defineProps } from 'vue';
 
 
@@ -144,5 +133,13 @@ function myOpenHumanModal(organ : any){
   top: 30vh;
   left: -7vw;
   width: 10vw;
+}
+
+.hovereffect{
+  border-radius: 50%;
+}
+.hovereffect:hover{
+  -webkit-box-shadow: 0px 0px 26px -1px rgba(255, 255, 255, 0.89); 
+  box-shadow: 0px 0px 26px -1px rgba(255, 255, 255, 0.89);
 }
 </style>

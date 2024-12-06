@@ -1,7 +1,4 @@
-<script setup lang="ts">
-// import "~/assets/css/game.scss";
-import "~/assets/css/bootstrapWish.scss";
-</script>
+
 
 <template>
   <div class="main">
@@ -14,25 +11,17 @@ import "~/assets/css/bootstrapWish.scss";
         />
         <slot />
       </div>
-      <div class="stats">
-        <h2>Explication</h2>
-        <ul>
-          <li>stat</li>
-          <li>stat</li>
-          <li>stat</li>
-        </ul>
-      </div>
     </div>
     <div class="right-side">
       <div class="imgbg"></div>
       <div class="ocean-icons">
-        <img src="../assets/img/fishes.svg" alt="Fish Icon" class="fishes" />
-        <img src="../assets/img/algae.svg" alt="Algae Icon" class="algae" />
-        <img src="../assets/img/corals.svg" alt="Corals Icon" class="corals" />
+        <img src="../assets/img/fishes.svg" alt="Fish Icon" class="fishes hovereffect" />
+        <img src="../assets/img/algae.svg" alt="Algae Icon" class="algae hovereffect" />
+        <img src="../assets/img/corals.svg" alt="Corals Icon" class="corals hovereffect" />
         <img
           src="../assets/img/seaCurrents.svg"
           alt="Sea Currents Icon"
-          class="sea-currents"
+          class="sea-currents hovereffect"
         />
       </div>
     </div>
@@ -40,6 +29,7 @@ import "~/assets/css/bootstrapWish.scss";
   <UButton v-for="organ in props.Organs" class="fit" color="gray" variant="solid" :label="organ.name" @click="myOpenSeaModal(organ)"/>
 
 </template>
+
 <script setup lang="ts">
   
 import '~/assets/css/game.scss'
@@ -49,7 +39,7 @@ import { defineProps } from 'vue';
 
 const props = defineProps({
   Organs : Array<any>,
-    OpenSeaModal: Function,
+  OpenSeaModal: Function,
     
   })
 
@@ -58,7 +48,6 @@ function myOpenSeaModal(organ : any){
     props.OpenSeaModal(organ)
   }
 }
-
 
 </script>
 
@@ -123,15 +112,15 @@ function myOpenSeaModal(organ : any){
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column-reverse;
+  justify-content: start;
+  align-items: end;
 }
 
 .imgbg {
   background-image: url("../assets/img/backgroundOcean.svg");
   background-repeat: no-repeat;
-  position: sticky;
-  bottom: 1;
   height: 80%;
+  width: 100%;
 }
 
 .fishes {
@@ -156,5 +145,13 @@ function myOpenSeaModal(organ : any){
   position: absolute;
   left: 85%;
   bottom: 35rem;
+}
+
+.hovereffect{
+  border-radius: 5%;
+}
+.hovereffect:hover{
+  -webkit-box-shadow: 0px 0px 26px -1px rgba(0, 0, 0, 0.89); 
+  box-shadow: 0px 0px 26px -1px rgba(0, 0, 0, 0.89);
 }
 </style>
