@@ -15,3 +15,37 @@ model User {
   username String  @unique
   password  String
 }
+
+model HumanOrgan {
+  id    Int     @id @default(autoincrement())
+  name String @unique
+  question String
+
+  yes_message String
+  yes_money Int
+  yes_health Int
+
+  no_message String
+  no_money Int
+  no_health Int
+
+  modalOpen Boolean @default(false)
+
+}
+model SeaOrgan {
+  id    Int     @id @default(autoincrement())
+  name String @unique
+  question String
+
+  yes_message String
+  yes_money Int
+  yes_health Int
+
+
+  no_message String
+  no_money Int
+  no_health Int
+
+  modalOpen Boolean @default(false) 
+
+}

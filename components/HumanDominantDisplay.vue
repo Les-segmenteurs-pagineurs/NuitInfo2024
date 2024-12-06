@@ -1,32 +1,36 @@
 <template>
+    
+
+  <UButton v-for="organ in props.Organs" class="fit" color="gray" variant="solid" :label="organ.name" @click="myOpenHumanModal(organ)"/>
   
-  <div class="main">
-    <div class="left-side">
-      
-      <div class="corner-pic">
-        <slot />
-      </div>
-      <div>
-        <ul>
-          <li>stat</li>
-          <li>stat</li>
-          <li>stat</li>
-        </ul>
-      </div>
-    </div>
-    <div class="w-100 h-100 right-side">
-      content
-    </div>
-  </div>
+    <!-- <UButton class="fit" color="gray" variant="solid" label="Heart" @click="myOpenHeartModal"/>
+    <UButton class="fit" color="gray" variant="solid" label="Liver" @click="myOpenLiverModal"/>
+    <UButton class="fit" color="gray" variant="solid" label="Lungs" @click="myOpenLungsModal"/>
+    <UButton class="fit" color="gray" variant="solid" label="Reins" @click="myOpenReinsModal"/> -->
+
   
-
-
-
 </template>
 
 
 <script setup lang="ts">
+
 import '~/assets/css/game.scss'
 import '~/assets/css/bootstrapWish.scss'
+import { defineProps } from 'vue';
+
+
+const props = defineProps({
+  Organs : Array<any>,
+    OpenHumanModal: Function,
+    
+  })
+
+function myOpenHumanModal(organ : any){
+  if (props.OpenHumanModal){
+    props.OpenHumanModal(organ)
+  }
+}
+
+
 
 </script>
