@@ -1,9 +1,9 @@
 <template>
-  <div class="p-4 w-3/5 self-center h-screen">
+  <div class="p-4 w-3/5 self-center min-h-screen">
 
     <div v-if="loading" class="text-center">Loading...</div>
     <div v-else-if="pokemon" class="pokemon-detail">
-      <div class="flex-col" >
+      <div class="flex-col">
         <NuxtLink to="/pokedex" class="retro-button mb-8 inline-block">
           Back to List
         </NuxtLink>
@@ -20,16 +20,11 @@
             <span v-if="text" class="text-white text-xl text-shadow">{{ text }}</span>
           </p>
         </div>
-        <div class="m-auto w-5/6 mt-8 h-100%">
+        <div class="m-auto w-5/6 mt-8">
           <h3 class="text-xl text-shadow mb-4">Source: </h3>
-          <iframe
-              v-if="url"
-              :src="url"
-              class="w-full"
-              style="height: 600px; border: none;">
+          <iframe v-if="url" :src="url" class="w-full" style="height: 800px; border: none;">
           </iframe>
         </div>
-
       </div>
     </div>
   </div>
@@ -91,9 +86,7 @@ onMounted(async () => {
   console.log("pokemonNameFR", pokemonNameFR);
   loading.value = false;
 });
-
 </script>
-
 
 <style scoped>
 /* Trait animé */
@@ -107,10 +100,10 @@ onMounted(async () => {
   animation: scanline 6s linear infinite;
   z-index: 10;
   background: repeating-linear-gradient(0deg,
-  rgba(0, 0, 0, 0.15),
-  rgba(0, 0, 0, 0.15) 1px,
-  transparent 1px,
-  transparent 2px);
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px);
 }
 
 @keyframes scanline {
@@ -126,10 +119,13 @@ onMounted(async () => {
 .pokemon-detail {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  min-height: 100vh;
+  /* Remplacement du height par min-height */
   font-family: 'Press Start 2P', cursive;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
+  /* Ajout du défilement vertical */
+  overflow-x: hidden;
   outline: none;
   background-color: #f0c838;
   display: flex;
@@ -137,10 +133,10 @@ onMounted(async () => {
   padding: 20px;
   z-index: 1;
   background: repeating-linear-gradient(180deg,
-  #f0c838,
-  #f0c838 2px,
-  transparent 2px,
-  transparent 3px);
+      #f0c838,
+      #f0c838 2px,
+      transparent 2px,
+      transparent 3px);
 }
 
 .text-shadow {
