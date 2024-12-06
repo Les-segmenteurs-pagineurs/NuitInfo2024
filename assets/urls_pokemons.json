@@ -1,0 +1,114 @@
+{
+    "pokemon_issues": {
+        "Deforestation": {
+            "pokemons": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard"],
+            "url": "https://www.lasciencesimplement.fr/deforestation-entre-perte-de-biodiversite-emergence-de-maladies-infectieuses/",
+            "text": "La déforestation est la destruction des forêts, principalement due à l'agriculture, l'exploitation forestière et les incendies. Cela entraîne une perte de biodiversité, ainsi que l'émergence de maladies infectieuses."
+        },
+        "Forest Fires": {
+            "pokemons": ["Charmander", "Charmeleon", "Charizard", "Vulpix", "Ninetales", "Growlithe", "Arcanine"],
+            "url": "https://renovables.blog/fr/%C3%A9cosyst%C3%A8me/les-incendies-de-for%C3%AAt-comprendre-leur-origine-et-leur-port%C3%A9e/",
+            "text": "Les incendies de forêt sont de plus en plus fréquents en raison du changement climatique et de la mauvaise gestion des terres. Ces feux dévastent les écosystèmes, détruisent des habitats et affectent les espèces."
+        },
+        "Plastic Pollution in Oceans": {
+            "pokemons": ["Squirtle", "Wartortle", "Blastoise", "Psyduck", "Golduck", "Magikarp", "Gyarados"],
+            "url": "https://planetemer.org/infos/actus/d%C3%A9chets-et-pollution-plastique-quel-impact-sur-la-biodiversit%C3%A9-marine",
+            "text": "La pollution plastique des océans menace la vie marine, affectant poissons, oiseaux et autres animaux marins."
+        },
+        "Biodiversity Loss Due to Pesticide Use": {
+            "pokemons": ["Caterpie", "Metapod", "Butterfree", "Oddish", "Gloom", "Vileplume"],
+            "url": "https://www.generations-futures.fr/actualites/pesticides-sol/",
+            "text": "L'utilisation excessive de pesticides détruit la biodiversité en empoisonnant les sols et les insectes."
+        },
+        "Bee and Other Pollinator Decline": {
+            "pokemons": ["Weedle", "Kakuna", "Beedrill", "Venonat", "Venomoth", "Zubat", "Golbat"],
+            "url": "https://www.mnhn.fr/fr/le-declin-des-insectes-pollinisateurs",
+            "text": "Le déclin des abeilles et autres pollinisateurs est alarmant. Ces insectes jouent un rôle crucial dans la pollinisation des plantes et la production alimentaire."
+        },
+        "Air Pollution and Urban Habitat Destruction": {
+            "pokemons": ["Pidgey", "Pidgeotto", "Pidgeot", "Meowth", "Persian"],
+            "url": "https://www.mnhn.fr/fr/actualites/pres-de-30-d-oiseaux-en-moins-en-30-ans-dans-les-villes-et-les-campagnes-francaises",
+            "text": "La pollution de l'air et la destruction des habitats urbains menacent les oiseaux et la faune."
+        },
+        "Habitat Fragmentation Due to Urbanization": {
+            "pokemons": ["Rattata", "Raticate", "Jigglypuff", "Wigglytuff"],
+            "url": "https://www.projetecolo.com/fragmentation-des-habitats-definition-causes-et-consequences-470.html",
+            "text": "L'urbanisation entraîne la fragmentation des habitats naturels, rendant difficile la survie des espèces."
+        },
+        "Noise and Light Pollution": {
+            "pokemons": ["Spearow", "Fearow", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat"],
+            "url": "https://www.faunesauvage.fr/sinformer/sinformer-articles/la-pollution-sonore-et-lumineuse-modifient-le-comportement-des-oiseaux",
+            "text": "La pollution sonore et lumineuse affecte les comportements des animaux nocturnes, perturbant leur alimentation et leur reproduction."
+        },
+        "Destruction of Wetlands": {
+            "pokemons": ["Ekans", "Arbok", "Magikarp", "Gyarados"],
+            "url": "https://lanature.ca/2024/10/04/les-serpents-des-allies-meconnus-au-coeur-de-la-biodiversite/",
+            "text": "La destruction des zones humides prive de nombreuses espèces de leur habitat naturel."
+        },
+        "Electromagnetic Fields and Forest Habitat Loss": {
+            "pokemons": ["Pikachu", "Raichu", "Magnemite", "Magneton"],
+            "url": "https://www.naturalscience.org/fr/news/2021/10/les-animaux-et-les-plantes-stresses-par-le-rayonnement/",
+            "text": "Les champs électromagnétiques, notamment émis par les lignes électriques et les technologies modernes, perturbent la faune et la flore des forêts."
+        },
+        "Desertification and Loss of Arid Habitats": {
+            "pokemons": ["Sandshrew", "Sandslash", "Trapinch", "Vibrava"],
+            "url": "https://www.blog-ecologie.fr/desertification-causes-consequences-solutions/",
+            "text": "La désertification réduit la biodiversité dans les habitats arides."
+        },
+        "Soil Pollution": {
+            "pokemons": ["Nidoran♀", "Nidorina", "Nidoqueen", "Diglett", "Dugtrio", "Zubat", "Golbat"],
+            "url": "https://hal.science/file/index/docid/477469/filename/Impact_des_polluants_du_sol_sur_la_biodiversite_animale_du_sol.pdf",
+            "text": "La pollution des sols nuit à la vie souterraine, affectant les animaux et les plantes."
+        },
+        "Water Contamination": {
+            "pokemons": ["Nidoran♂", "Nidorino", "Nidoking", "Squirtle", "Wartortle", "Blastoise"],
+            "url": "https://www.oceanium.org/comment-la-pollution-de-leau-affecte-les-animaux-marins/",
+            "text": "La contamination de l'eau, notamment par des produits chimiques et des déchets, menace la vie aquatique."
+        },
+        "Light Pollution Affecting Nocturnal Behavior": {
+            "pokemons": ["Clefairy", "Clefable", "Zubat", "Golbat"],
+            "url": "https://www.faunesauvage.fr/sinformer/sinformer-articles/especes-nocturnes-la-pollution-lumineuse-piege-ou-barriere",
+            "text": "La pollution lumineuse perturbe les animaux nocturnes, modifiant leurs habitudes de reproduction et de migration."
+        },
+        "Forest Fires and Habitat Destruction": {
+            "pokemons": ["Vulpix", "Ninetales", "Growlithe", "Arcanine", "Charmander", "Charmeleon", "Charizard"],
+            "url": "https://www.ifaw.org/fr/journal/consequences-incendies-faune-sauvage",
+            "text": "Les incendies forestiers dévastent les habitats naturels et mettent en danger la faune locale."
+        },
+        "Cave Destruction and Noise Pollution": {
+            "pokemons": ["Zubat", "Golbat", "Onix", "Geodude"],
+            "url": "https://plan-actions-chiropteres.fr/les-chauve-souris/menaces",
+            "text": "La destruction des grottes et la pollution sonore nuisent aux chauves-souris et autres espèces cavernicoles."
+        },
+        "Excessive Use of Pesticides": {
+            "pokemons": ["Oddish", "Gloom", "Vileplume", "Venonat", "Venomoth"],
+            "url": "https://acapros.fr/avantages-et-inconvenients/avantages-et-inconvenients-des-pesticides/",
+            "text": "L'utilisation excessive de pesticides entraîne une contamination des sols et des effets néfastes sur la faune."
+        },
+        "Deforestation and Loss of Symbiotic Fungi": {
+            "pokemons": ["Paras", "Parasect", "Zubat", "Golbat"],
+            "url": "https://www.afas.fr/symbiose-et-cooperation-entre-les-arbres-et-les-champignons-pour-une-foret-durable/",
+            "text": "La déforestation affecte les champignons symbiotiques qui jouent un rôle clé dans la santé des forêts."
+        },
+        "Air Pollution and Habitat Destruction": {
+            "pokemons": ["Venonat", "Venomoth", "Pidgey", "Pidgeotto", "Pidgeot"],
+            "url": "https://www.blog-ecologie.fr/pollution-de-lair-et-ses-consequences-sur-les-insectes/",
+            "text": "La pollution de l'air nuit aux insectes et à leurs habitats."
+        },
+        "Urban Habitat Loss and Light Pollution": {
+            "pokemons": ["Meowth", "Persian", "Jigglypuff", "Wigglytuff"],
+            "url": "https://www.faunesauvage.fr/sinformer/sinformer-articles/especes-nocturnes-la-pollution-lumineuse-piege-ou-barriere",
+            "text": "La perte d'habitat urbain et la pollution lumineuse ont des effets délétères sur les espèces nocturnes."
+        },
+        "Freshwater Pollution": {
+            "pokemons": ["Psyduck", "Golduck", "Magikarp", "Gyarados"],
+            "url": "https://amisdulacsaintdenis.files.wordpress.com/2016/04/les-canardsc2a0.pdf",
+            "text": "La pollution des eaux douces affecte les canards et autres animaux aquatiques."
+        },
+        "Tropical Deforestation": {
+            "pokemons": ["Mankey", "Primeape", "Pidgey", "Pidgeotto"],
+            "url": "https://www.globalforestwatch.org/blog/fr/forest-insights/la-perte-de-forets-primaires-tropicales-sest-aggravee-en-2022-malgre-les-engagements-internationaux-visant-a-mettre-fin-a-la-deforestation/",
+            "text": "La déforestation tropicale menace les forêts primaires et la biodiversité unique qu'elles abritent."
+        }
+    }
+}

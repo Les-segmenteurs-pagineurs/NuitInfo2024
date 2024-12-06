@@ -1,6 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
+  <h1>home page</h1>
+  <ULink to="/pokedex">Pokedex</ULink>
   <div class="full-div">
     <div
       class="flex flex-col circle-div bg-gradient-to-r from-transparent via-slate-900 to-transparent"

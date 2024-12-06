@@ -546,6 +546,7 @@ FodyWeavers.xsd
 .nuxt
 .output
 .env
+!.env.example
 
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
