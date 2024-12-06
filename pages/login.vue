@@ -6,8 +6,8 @@
       </template>
 
       <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-        <UFormGroup label="Username" name="username">
-          <UInput v-model="state.username" placeholder="mrBoombastic..." icon="i-heroicons-user-circle" />
+        <UFormGroup label="Mail" name="email">
+          <UInput v-model="state.email" placeholder="mr.oombastic@g..." icon="i-heroicons-envelope" />
         </UFormGroup>
 
         <UFormGroup label="Password" name="password">
@@ -24,46 +24,30 @@
 
 </template>
 <script setup lang="ts">
-
-import type { FormError } from '#ui/types'
-import "~/assets/css/bootstrapWish.scss"
 import { object, string, nonempty, type Infer } from 'superstruct'
 import type { FormSubmitEvent } from '#ui/types'
 
-
-
 const schema = object({
-  username: nonempty(string()),
+  email: nonempty(string()),
   password: nonempty(string())
 })
 
 const state = reactive({
-  username: '',
+  email: '',
   password: ''
 })
 
 type Schema = Infer<typeof schema>
-
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-  console.log(event.data)
-
-  const  body : any  = await $fetch('/api/login', {
-    method: 'post',
-    body: event.data 
-  })
-
-  console.log("body",body)
-
+  async function onSubmit(event: FormSubmitEvent<Schema>) {
+  const router = useRouter();
+  try {
+    const body: any = await $fetch('/api/user/login', {
+      method: 'POST',
+      body: event.data
+    });
+      } catch (error) {
+    console.error('Erreur lors de la connexion:', error);
+  }
 }
-
-// const providers = [{
-//   label: 'Continue with GitHub',
-//   icon: 'i-simple-icons-github',
-//   color: 'white' as const,
-//   click: () => {
-//     console.log('Redirect to GitHub')
-//   }
-// }]
-
 
 </script>
