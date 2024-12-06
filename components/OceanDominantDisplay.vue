@@ -15,13 +15,14 @@
     <div class="right-side">
       <div class="imgbg"></div>
       <div class="ocean-icons">
-        <img src="../assets/img/fishes.svg" alt="Fish Icon" class="fishes hovereffect" />
-        <img src="../assets/img/algae.svg" alt="Algae Icon" class="algae hovereffect" />
-        <img src="../assets/img/corals.svg" alt="Corals Icon" class="corals hovereffect" />
+        <img src="../assets/img/fishes.svg" alt="Fish Icon" class="fishes hovereffect" @click="myOpenSeaModal('Poisson')"/>
+        <img src="../assets/img/algae.svg" alt="Algae Icon" class="algae hovereffect" @click="myOpenSeaModal('Algues')" />
+        <img src="../assets/img/corals.svg" alt="Corals Icon" class="corals hovereffect"  @click="myOpenSeaModal('Coraux')"/>
         <img
           src="../assets/img/seaCurrents.svg"
           alt="Sea Currents Icon"
           class="sea-currents hovereffect"
+          @click="myOpenSeaModal('Courant marin')"
         />
       </div>
     </div>
@@ -43,10 +44,14 @@ const props = defineProps({
     
   })
 
-function myOpenSeaModal(organ : any){
-  if (props.OpenSeaModal){
-    props.OpenSeaModal(organ)
+function myOpenSeaModal(nameOrgan : string){
+  if(props.Organs){
+    const index = props.Organs.findIndex((o) => o.name == nameOrgan)
+    if (props.OpenSeaModal){
+      props.OpenSeaModal(props.Organs[index])
+    }
   }
+
 }
 
 </script>

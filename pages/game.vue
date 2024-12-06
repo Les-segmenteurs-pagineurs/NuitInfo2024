@@ -1,4 +1,6 @@
 <template>
+
+  
   <div v-if="humanDisplay" class="h-100 w-100">
     <HumanDominantDisplay :OpenHumanModal="OpenHumanModal" :Organs="humanOrgans">
       <div class="h-100 w-100">
