@@ -46,6 +46,7 @@ if (isLogged) {
     {
       label: "Sign In",
       icon: "i-heroicons-arrow-right-circle",
+      to: "/signin",
     },
   ];
 }

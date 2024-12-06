@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-center align-items-center w-100 h-100 h-screen">
     <UCard class="max-w-sm w-full">
       <template #header class="d-flex justify-items-center">
-        <h2>Login</h2>
+        <h2>SignIn</h2>
       </template>
 
       <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
@@ -50,7 +50,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
   const  body : any  = await $fetch('/api/login', {
     method: 'post',
-    body: event.data 
+    body: event.data
   })
 
 
