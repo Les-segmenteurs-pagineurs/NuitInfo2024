@@ -1,7 +1,7 @@
 <template>
   human dominant
   <UButton v-for="organ in props.Organs" class="fit" color="gray" variant="solid" :label="organ.name" @click="myOpenHumanModal(organ)"/>
-  <UButton v-for="organ in props.Organs" class="fit" color="gray" variant="solid" :label="organ.name" @click="myOpenHumanModal(organ)"/>
+  <slot />
   
 </template>
 
@@ -15,8 +15,8 @@ import { defineProps } from 'vue';
 
 const props = defineProps({
   Organs : Array<any>,
-    OpenHumanModal: Function,
-    
+  OpenHumanModal: Function,
+
   })
 
 function myOpenHumanModal(organ : any){

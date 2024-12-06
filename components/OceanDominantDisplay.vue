@@ -1,7 +1,8 @@
 <template>
     sea dominant
     <UButton v-for="organ in props.Organs" class="fit" color="gray" variant="solid" :label="organ.name" @click="myOpenSeaModal(organ)"/>
-  </template>
+    <slot />
+</template>
   
   
   <script setup lang="ts">

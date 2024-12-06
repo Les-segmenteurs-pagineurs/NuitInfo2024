@@ -25,8 +25,8 @@
     <UModal v-for="item in humanOrgans" :key="item.id" v-model="item.modalOpen">
         <div class="flex-col">
             <h1>{{ item.question }}</h1>
-            <UButton square class="fit m1" color="green" label="Yes" @click="human_yes_clicked(item)"/>
-            <UButton square class="fit m1" color="red" label="No" />
+            <UButton square class="fit m1" color="green" :label="item.answer_a" @click="human_a_clicked(item)"/>
+            <UButton square class="fit m1" color="red" :label="item.answer_b"  @click="human_b_clicked(item)"/>
         </div>
     </UModal>
 
@@ -66,10 +66,10 @@ function OpenHumanModal(organ: any) {
     organ.modalOpen = true
 }
 
-function human_yes_clicked(organ : any){
+function human_a_clicked(organ : any){
     alert(`${organ.yes_message} money : ${organ.yes_money} health : ${organ.yes_health}`)
 }
-function human_no_clicked(organ : any){
+function human_b_clicked(organ : any){
     alert(`${organ.no_message} money : ${organ.no_money} health : ${organ.no_health}`)
 }
 
